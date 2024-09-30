@@ -9,9 +9,6 @@ const loadMealsByName = (searchValue) => {
                 displayNotFound();
             }
         })
-        // .catch(err => {
-        //     console.log('Error fetching meals:', err);
-        // });
 };
 
 const displayMeals = (meals) => {
