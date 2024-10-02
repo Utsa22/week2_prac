@@ -10,7 +10,6 @@ const loadMealsByName = (searchValue) => {
             }
         })
 };
-
 const displayMeals = (meals) => {
     const mealContainer = document.getElementById('meal-container');
     mealContainer.innerHTML = '';
@@ -23,7 +22,7 @@ const displayMeals = (meals) => {
                 <div class="card-body">
                     <h5 class="card-title">${meal.strMeal || 'No Name'}</h5>
                     <p class="card-text">Category: ${meal.strCategory || 'Not Available'}</p>
-                    <p class="card-text">Cuisine: ${meal.strArea || 'Not Available'}</p>
+                    <p class="card-text">Country: ${meal.strArea || 'Not Available'}</p>
                     <button class="btn btn-primary" onclick="showMealDetails(${meal.idMeal})" data-bs-toggle="modal" data-bs-target="#mealModal">Details</button>
                 </div>
             </div>
@@ -39,7 +38,6 @@ const displayNotFound = () => {
     div.classList.add('col-12', 'text-center', 'mt-5');
     div.innerHTML = `
         <h3>No meals found for this search term.</h3>
-        <p>Please try searching for another meal.</p>
     `;
     mealContainer.appendChild(div);
 };
@@ -53,17 +51,14 @@ const showMealDetails = (mealId) => {
                 <img src="${meal.strMealThumb}" class="img-fluid" alt="Meal Image">
                 <h5>${meal.strMeal}</h5>
                 <p><strong>Category:</strong> ${meal.strCategory}</p>
-                <p><strong>Cuisine:</strong> ${meal.strArea}</p>
-                <p><strong>Instructions:</strong> ${meal.strInstructions.slice(0, 100)}...</p>
+                <p><strong>Country:</strong> ${meal.strArea}</p>
+                <p><strong>Instructions:</strong> ${meal.strInstructions.slice(0, 50)}...</p>
                 <p><strong>Ingredients:</strong></p>
                 <ul>
                     ${getIngredients(meal).map(ingredient => `<li>${ingredient}</li>`).join('')}
                 </ul>
             `;
         })
-        .catch(err => {
-            console.log('Error fetching meal details:', err);
-        });
 };
 const getIngredients = (meal) => {
     let ingredients = [];
@@ -80,5 +75,3 @@ document.getElementById('search-form').addEventListener('submit', (e) => {
     const searchValue = document.getElementById('search-input').value;
     loadMealsByName(searchValue);
 });
-
-loadDefaultMeals();
